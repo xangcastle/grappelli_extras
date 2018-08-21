@@ -1,4 +1,4 @@
-# grappelli-dynamic-navbar
+# grappelli_extras
 
 [![Latest PyPI version](https://pypip.in/v/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
 
