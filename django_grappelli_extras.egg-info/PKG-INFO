@@ -1,0 +1,19 @@
+Metadata-Version: 1.1
+Name: django-grappelli-extras
+Version: 1.0.2
+Summary: Ajax, Extensions and Extras for Grappelli Admin interface
+Home-page: https://github.com/xangcastle/grappelli_extras
+Author: Cesar Abel Ramirez
+Author-email: xangcastle@gmail.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Utilities
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django

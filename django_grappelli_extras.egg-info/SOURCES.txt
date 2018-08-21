@@ -1,0 +1,16 @@
+setup.cfg
+setup.py
+django_grappelli_extras.egg-info/PKG-INFO
+django_grappelli_extras.egg-info/SOURCES.txt
+django_grappelli_extras.egg-info/dependency_links.txt
+django_grappelli_extras.egg-info/requires.txt
+django_grappelli_extras.egg-info/top_level.txt
+grappelli_extras/__init__.py
+grappelli_extras/admin.py
+grappelli_extras/ajax.py
+grappelli_extras/ajax_urls.py
+grappelli_extras/extras.py
+grappelli_extras/extras_urls.py
+grappelli_extras/models.py
+grappelli_extras/utils.py
+grappelli_extras/views.py
