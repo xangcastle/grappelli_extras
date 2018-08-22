@@ -6,17 +6,24 @@
 
 
 Available features:
-* [Header navbar](#navbar)
 
+* [Header navbar](#navbar)
 Add a dynamic navbar that change according to user permissions
 
-Add Traslation and addlink.
+* [Add Links](#add-links)
+Add addlink for each model in the nabvar according to user permissions.
 
-An Ajax api to omr using generics views.
+* [Traslation](#translation)
+Traslation Suport by Locales.
 
-Integration of adminactions and import_export modules.
+* [Ajax](#ajax)
+An Ajax api make queries to django OMR using generics views.
 
-Jquery Plugin to creade modals with objects forms.
+* [Integration](#integration)*
+Integration of adminactions, filebrowser, import_export modules.
+
+* [Integration](#jquery)
+Include a Jquery Plugin to creade modals with objects json getting data from django OMR.
 
 # Requirements
 
@@ -42,15 +49,30 @@ TEMPLATE_LOADERS = (
 )
 ```
 
+## urls.py
+
+ * Put grappelli extras urls in 'urlpatterns':
+
+```python
+# Your urls will look like:
+urlpatterns = [
+    url('admin/', admin.site.urls),
+    url('grappelli/', include('grappelli.urls')),
+    url('admin/ajax/', include('grappelli_extras.ajax_urls')),
+    url('admin/extras/', include('grappelli_extras.extras_urls')),
+
+]
+```
+
  * Be sure 'django.core.context_processors.request' on your TEMPLATE_CONTEXT_PROCESSORS setting:
 
 
-## To run tests
+## To run test project
 
 ```
-pip install -r requirements/tests.txt Django
-export DJANGO_SETTINGS_MODULE=grappelli_dynamic_navbar.test_settings
-`which django-admin.py` test grappelli_extras"
+cd ~/grappelli_extras/testapp
+pip install -r requirements.txt
+python manage.py runserver
 ```
 
 ## Contributing
@@ -60,3 +82,5 @@ export DJANGO_SETTINGS_MODULE=grappelli_dynamic_navbar.test_settings
 3. Commit your changes. (`git commit -am 'Add some feature'`)
 4. Push to the branch. (`git push origin my-new-feature`)
 5. Create new Pull Request.
+
+Thank You
