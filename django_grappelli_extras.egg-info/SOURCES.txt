@@ -17,6 +17,7 @@ grappelli_extras/models.py
 grappelli_extras/utils.py
 grappelli_extras/views.py
 grappelli_extras/static/ajax/django-ajax.js
+grappelli_extras/static/ajax/grp-token.js
 grappelli_extras/static/ajax/token.js
 grappelli_extras/templates/admin/base.html
 grappelli_extras/templates/admin/navbar.html
