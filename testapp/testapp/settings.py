@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import sys
+sys.path.append(r'/home/abel/Projectos/grappelli_extras/grappelli_extras')
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

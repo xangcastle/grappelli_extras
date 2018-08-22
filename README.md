@@ -21,6 +21,12 @@ An Ajax api make queries to django OMR using generics views.
 
 # Using Autocomplete generic view
 ```javascript
+
+
+<script src="{% static 'ajax/grp-token.js' %}"></script>
+
+<input type="text" id="complete-input">
+
 <script>
     (function ($) {
         var completeEvent = function () {
@@ -28,8 +34,6 @@ An Ajax api make queries to django OMR using generics views.
                 minLength: 2,
                 source: "{% url 'ajax_autocomplete' %}?app_label=app&model=foo&column_name=name&column_value=code",
                 select: function (i, o) {
-                    // o contain the object in json format
-                    // you can use it to populate anothers inputs
                     console.log(o);
                 }
             });
@@ -37,26 +41,48 @@ An Ajax api make queries to django OMR using generics views.
         $('#complete-input').on('keyup', completeEvent);
     })(grp.jQuery)
 </script>
+
+
 ```
 
-# Using Autocomplete generic view
+# Using GetCollection generic view
 ```javascript
+
+
+<script src="{% static 'ajax/grp-token.js' %}"></script>
+
 <script>
     (function ($) {
-        var completeEvent = function () {
-            $(this).autocomplete({
-                minLength: 2,
-                source: "{% url 'ajax_autocomplete' %}?app_label=app&model=foo&column_name=name&column_value=code",
-                select: function (i, o) {
-                    // o contain the object in json format
-                    // you can use it to populate anothers inputs
-                    console.log(o);
+        $.ajax("{% url 'ajax_getCollection' %}", {
+                method: "POST",
+                data: {app_label: "app", model: "foo"},
+                success: function (collection) {
+                    console.log(collection);
                 }
-            });
-        };
-        $('#complete-input').on('keyup', completeEvent);
+            })
     })(grp.jQuery)
 </script>
+
+```
+
+# Using GetObject generic view
+```javascript
+
+
+<script src="{% static 'ajax/grp-token.js' %}"></script>
+
+<script>
+    (function ($) {
+        $.ajax("{% url 'ajax_getObject' %}", {
+                method: "POST",
+                data: {app_label: "app", model: "foo", id: '1'},
+                success: function (obj) {
+                    console.log(obj);
+                }
+            })
+    })(grp.jQuery)
+</script>
+
 ```
 
 * [Integration](#integration)*
@@ -112,6 +138,7 @@ urlpatterns = [
 ```
 cd ~/grappelli_extras/testapp
 pip install -r requirements.txt
+python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver

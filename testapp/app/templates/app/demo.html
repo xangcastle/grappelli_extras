@@ -2,7 +2,9 @@
 
 {% load static %}
 {% block content %}
+
 <script src="{% static 'ajax/grp-token.js' %}"></script>
+
 <input type="text" id="complete-input">
 
 <script>
@@ -23,15 +25,27 @@
 
 <script>
     (function ($) {
-        $.ajax("{% url 'ajax_getObject' %}", {
+        $.ajax("{% url 'ajax_getCollection' %}", {
                 method: "POST",
-                data: {app_label: "app", model: "foo", id: '1'},
-                success: function (i, o) {
-                    console.log(o);
+                data: {app_label: "app", model: "foo"},
+                success: function (collection) {
+                    console.log(collection);
                 }
             })
     })(grp.jQuery)
 </script>
 
+
+<script>
+    (function ($) {
+        $.ajax("{% url 'ajax_getObject' %}", {
+                method: "POST",
+                data: {app_label: "app", model: "foo", id: '1'},
+                success: function (obj) {
+                    console.log(obj);
+                }
+            })
+    })(grp.jQuery)
+</script>
 
 {% endblock %}

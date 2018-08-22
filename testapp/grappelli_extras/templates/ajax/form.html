@@ -1,0 +1,14 @@
+{% load static crispy_forms_tags %}
+
+<form action="{{ action }}" method="{{ method }}" class="ajax-form"
+    callback="{{ callback }}" params="{{ params }}" id="form-{{ model }}">
+    {% csrf_token %}
+    {% if id %}
+        <input type="hidden" name="id" value="{{ id }}" id="ges_aval_id">
+    {% endif %}
+    <input type="hidden" name="app_label" value="{{ app_label }}"/>
+    <input type="hidden" name="model" value="{{ model }}"/>
+    <input type="hidden" name="fields" value="{{ fields }}"/>
+    {{ form|crispy }}
+    <input type="submit" value="Aceptar" class="btn btn-primary" style="float:right;width:40%">
+</form>
