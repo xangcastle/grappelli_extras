@@ -34,7 +34,8 @@ An Ajax api make queries to django OMR using generics views.
                 minLength: 2,
                 source: "{% url 'ajax_autocomplete' %}?app_label=app&model=foo&column_name=name&column_value=code",
                 select: function (i, o) {
-                    console.log(o);
+                    // you can user obj to populate another inputs
+                    console.log(o.item.obj);
                 }
             });
         };
@@ -84,6 +85,72 @@ An Ajax api make queries to django OMR using generics views.
 </script>
 
 ```
+
+# Using ObjectView generic view
+Firts define the method returning a html string
+```python
+from grappelli_extras.models import base, base_entidad
+from django.template.loader import render_to_string
+
+class Foo(base_entidad):
+    ...
+    def render_as_table(self):
+        return render_to_string("app/foo.html", {'obj': self})
+
+```
+
+In the html template render using django tags and filters as usual
+```djangotemplate
+<table class="grp-table">
+    <thead>
+    <tr>
+        <th colspan="2">Foo Object</th>
+    </tr>
+    <tr>
+        <th>Key</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td>ID</td>
+        <td>{{obj.id}}</td>
+    </tr>
+    <tr>
+        <td>CODE</td>
+        <td>{{obj.code}}</td>
+    </tr>
+    <tr>
+        <td>NAME</td>
+        <td>{{obj.name}}</td>
+    </tr>
+    </tbody>
+</table>
+
+```
+After when you need to render this conten by Ajax
+```javascript
+
+
+<script src="{% static 'ajax/grp-token.js' %}"></script>
+
+<div id="result"></div>
+
+<script>
+    (function ($) {
+        $.ajax("{% url 'ajax_ObjectView' %}", {
+                method: "POST",
+                data: {app_label: "app", model: "foo", id: '1', view: 'render_as_table'},
+                success: function (response) {
+                    $('#result').html(response);
+                }
+            })
+    })(grp.jQuery)
+</script>
+
+```
+
 
 * [Integration](#integration)*
 Integration of adminactions, filebrowser, import_export modules.

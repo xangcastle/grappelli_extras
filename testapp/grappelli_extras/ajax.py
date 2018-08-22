@@ -11,9 +11,9 @@ def load_module(mod, cls):
 
 
 def get_object(request):
-    instance = Filter(app_label=request.POST.get('app_label', request.GET.get('app_label')),
-                      model_name=request.POST.get('model', request.GET.get('model'))
-                      ).get_instance(request.POST.get('id', request.GET.get('id')))
+    instance = Filter(app_label=request.POST.get('app_label'),
+                      model_name=request.POST.get('model')
+                      ).get_instance(request.POST.get('id'))
     return HttpResponse(json.dumps(instance.to_json(), cls=Codec), content_type='application/json')
 
 

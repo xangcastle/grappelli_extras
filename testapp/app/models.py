@@ -1,5 +1,6 @@
 from django.db import models
 from grappelli_extras.models import base, base_entidad
+from django.template.loader import render_to_string
 
 
 # This is the way than you must to define your models
@@ -15,6 +16,9 @@ class Foo(base_entidad):
     date = models.DateTimeField()
     title = models.CharField(max_length=250)
     description = models.TextField(max_length=600, null=True, blank=True)
+
+    def render_as_table(self):
+        return render_to_string("app/foo.html", {'obj': self})
 
 
 class Bar(base):
