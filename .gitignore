@@ -1,5 +1,7 @@
 /venv
 /.idea
+/build
 *.pyc
 *.pyo
 .pypirc
+db.sqlite3

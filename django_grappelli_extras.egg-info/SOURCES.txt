@@ -1,3 +1,5 @@
+MANIFEST.in
+README.md
 setup.cfg
 setup.py
 django_grappelli_extras.egg-info/PKG-INFO
@@ -14,3 +16,10 @@ grappelli_extras/extras_urls.py
 grappelli_extras/models.py
 grappelli_extras/utils.py
 grappelli_extras/views.py
+grappelli_extras/static/ajax/django-ajax.js
+grappelli_extras/static/ajax/token.js
+grappelli_extras/templates/admin/base.html
+grappelli_extras/templates/admin/navbar.html
+grappelli_extras/templates/ajax/form.html
+grappelli_extras/templates/grappelli/navbar.html
+grappelli_extras/templates/print/document.html

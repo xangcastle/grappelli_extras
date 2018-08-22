@@ -50,7 +50,7 @@ setup(
     author=author,
     author_email=author_email,
     license=license,
-    packages=find_packages(),
+    packages=['grappelli_extras'],
     include_package_data=True,
     description=description,
     classifiers=[
