@@ -6,7 +6,6 @@ import os
 import re
 import sys
 
-
 VERSION_FILE = 'grappelli_extras/__init__.py'
 version_text = open(VERSION_FILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
@@ -17,11 +16,10 @@ else:
     raise RuntimeError(
         "Unable to find version string in %s." % (VERSION_FILE,))
 
-
 name = 'django-grappelli-extras'
 package = 'grappelli_extras'
 description = 'Ajax, Extensions and Extras for Grappelli Admin interface'
-url = 'https://github.com/xangcastle/grappelli_extras'
+url = 'https://github.com/xangcastle/grappelli_extras/'
 author = 'Cesar Abel Ramirez'
 author_email = 'xangcastle@gmail.com'
 license = 'BSD'
@@ -32,7 +30,6 @@ install_requires = [
     'django-adminactions>=1.5 ',
 ]
 
-
 if sys.argv[-1] == 'publish':
     args = {'version': version}
     os.system("python setup.py sdist bdist_wheel")
@@ -41,6 +38,10 @@ if sys.argv[-1] == 'publish':
     os.system("git tag -a %(version)s -m 'version %(version)s'" % args)
     os.system("git push --tags")
     sys.exit()
+
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
 setup(
@@ -53,6 +54,7 @@ setup(
     packages=['grappelli_extras'],
     include_package_data=True,
     description=description,
+    long_description=read('README.md'),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
