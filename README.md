@@ -19,6 +19,46 @@ Traslation Suport by Locales.
 * [Ajax](#ajax)
 An Ajax api make queries to django OMR using generics views.
 
+# Using Autocomplete generic view
+```javascript
+<script>
+    (function ($) {
+        var completeEvent = function () {
+            $(this).autocomplete({
+                minLength: 2,
+                source: "{% url 'ajax_autocomplete' %}?app_label=app&model=foo&column_name=name&column_value=code",
+                select: function (i, o) {
+                    // o contain the object in json format
+                    // you can use it to populate anothers inputs
+                    console.log(o);
+                }
+            });
+        };
+        $('#complete-input').on('keyup', completeEvent);
+    })(grp.jQuery)
+</script>
+```
+
+# Using Autocomplete generic view
+```javascript
+<script>
+    (function ($) {
+        var completeEvent = function () {
+            $(this).autocomplete({
+                minLength: 2,
+                source: "{% url 'ajax_autocomplete' %}?app_label=app&model=foo&column_name=name&column_value=code",
+                select: function (i, o) {
+                    // o contain the object in json format
+                    // you can use it to populate anothers inputs
+                    console.log(o);
+                }
+            });
+        };
+        $('#complete-input').on('keyup', completeEvent);
+    })(grp.jQuery)
+</script>
+```
+
 * [Integration](#integration)*
 Integration of adminactions, filebrowser, import_export modules.
 

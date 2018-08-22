@@ -18,10 +18,10 @@ from django.conf.urls import url, include
 from app.views import demo
 
 urlpatterns = [
-    url('', demo),
+    url('$^', demo),
     url('admin/', admin.site.urls),
     url('grappelli/', include('grappelli.urls')),
     url('admin/ajax/', include('grappelli_extras.ajax_urls')),
-    url('admin/extras/', include('grappelli_extras.ajax_extras')),
+    url('admin/extras/', include('grappelli_extras.extras_urls')),
     url('admin/', admin.site.urls),
 ]
