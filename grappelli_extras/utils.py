@@ -6,7 +6,6 @@ import decimal
 from functools import reduce
 from django.db.models.fields.files import ImageFieldFile, FileField
 from django.contrib.contenttypes.models import ContentType
-from geoposition.forms import GeopositionField
 
 
 def smart_text(tuples, key):
@@ -37,11 +36,6 @@ class Codec(json.JSONEncoder):
         elif isinstance(obj, FileField):
             try:
                 return obj.url
-            except:
-                return 'null'
-        elif isinstance(obj, GeopositionField):
-            try:
-                return {'lat': obj.latitude, 'lon': obj.longitude}
             except:
                 return 'null'
         elif obj == None:

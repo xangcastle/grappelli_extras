@@ -1,0 +1,24 @@
+{% extends 'admin/base.html' %}
+
+
+{% block content %}
+
+<input type="text" id="complete-input">
+
+<script>
+    (function ($) {
+        var completeEvent = function () {
+            $(this).autocomplete({
+                minLength: 2,
+                source: "{% url 'ajax_autocomplete' %}?app_label=app&model=foo&column_name=name",
+                select: function (i, o) {
+                    console.log(o);
+                }
+            });
+        };
+        $('#complete-input').on('keyup', completeEvent);
+    })(grp.jQuery)
+</script>
+
+
+{% endblock %}
