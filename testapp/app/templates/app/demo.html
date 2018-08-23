@@ -2,7 +2,6 @@
 
 {% load static %}
 {% block content %}
-
 <script src="{% static 'ajax/grp-token.js' %}"></script>
 
 <input type="text" id="complete-input">
@@ -28,12 +27,12 @@
 <script>
     (function ($) {
         $.ajax("{% url 'ajax_getCollection' %}", {
-                method: "POST",
-                data: {app_label: "app", model: "foo"},
-                success: function (collection) {
-                    console.log(collection);
-                }
-            })
+            method: "POST",
+            data: {app_label: "app", model: "foo"},
+            success: function (collection) {
+                console.log(collection);
+            }
+        })
     })(grp.jQuery)
 </script>
 
@@ -41,25 +40,26 @@
 <script>
     (function ($) {
         $.ajax("{% url 'ajax_getObject' %}", {
-                method: "POST",
-                data: {app_label: "app", model: "foo", id: '1'},
-                success: function (obj) {
-                    console.log(obj);
-                }
-            })
+            method: "POST",
+            data: {app_label: "app", model: "foo", id: '1'},
+            success: function (obj) {
+                console.log(obj);
+            }
+        })
     })(grp.jQuery)
 </script>
 
 <script>
     (function ($) {
         $.ajax("{% url 'ajax_ObjectView' %}", {
-                method: "POST",
-                data: {app_label: "app", model: "foo", id: '1', view: 'render_as_table'},
-                success: function (response) {
-                    $('#result').html(response);
-                }
-            })
+            method: "POST",
+            data: {app_label: "app", model: "foo", id: '1', view: 'render_as_table'},
+            success: function (response) {
+                $('#result').html(response);
+            }
+        })
     })(grp.jQuery)
 </script>
+
 
 {% endblock %}

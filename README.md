@@ -4,6 +4,52 @@
 
 [![Number of PyPI downloads](https://pypip.in/d/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
 
+# Requirements
+
+* Python = 3
+* Django >= 2.1
+* django-grappelli >= 2.11.1
+
+# Installation
+
+* ```pip install django-grappelli-extras```
+
+## settings.py
+
+ * Put 'grappelli_extras' **before** 'grappelli' on INSTALLED_APPS
+
+```python
+# Your setting will look like:
+INSTALLED_APPS = [
+    'grappelli_extras',
+    'grappelli',
+    'import_export',
+    'adminactions',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # continue with your apps
+]
+```
+
+## urls.py
+
+ * Put grappelli extras urls in 'urlpatterns':
+
+```python
+# Your urls will look like:
+urlpatterns = [
+    url('admin/', admin.site.urls),
+    url('admin/ajax/', include('grappelli_extras.ajax_urls')),
+    url('admin/extras/', include('grappelli_extras.extras_urls')),
+    url('grappelli/', include('grappelli.urls')),
+
+]
+```
+
 
 Available features:
 
@@ -17,7 +63,7 @@ Add addlink for each model in the nabvar according to user permissions.
 Traslation Suport by Locales.
 
 * [Ajax](#ajax)
-An Ajax api make queries to django OMR using generics views.
+An Ajax api to make queries to django OMR using generics views.
 
 # Using Autocomplete generic view
 ```javascript
@@ -151,54 +197,52 @@ After when you need to render this conten by Ajax
 
 ```
 
+# Working with jQuery pluggins.
+Let start with datatables.
+
+In your template include the js script ajax token.js after jQuery to keep secure the request.
+And include all css and js as you need.
+
+```djangotemplate
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+
+<table></table>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="{% static 'ajax/token.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+<script>
+
+    $(document).ready(function () {
+        $("table").DataTable({
+            ajax: '{% url "ajax_getDataTables" %}?app_label=app&model=foo',
+            columns: [{'data': 'id'}, {'data': 'code'}, {'data': 'name'}]
+        });
+    });
+
+</script>
+</body>
+</html>
+
+```
+
+You can add filters like a json see doc.
 
 * [Integration](#integration)*
 Integration of adminactions, filebrowser, import_export modules.
 
 * [Integration](#jquery)
 Include a Jquery Plugin to creade modals with objects json getting data from django OMR.
-
-# Requirements
-
-* Python > 2.6
-* django-grappelli >= 2.4.5
-* Django >= 1.4
-
-# Installation
-
-* ```pip install django-grappelli-extras```
-
-## settings.py
-
- * Put 'grappelli_extras' **before** 'grappelli' on INSTALLED_APPS
- * Put 'apptemplates.Loader' on your TEMPLATE_LOADERS setting:
-
-```python
-# Your setting will look like:
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'apptemplates.Loader',
-)
-```
-
-## urls.py
-
- * Put grappelli extras urls in 'urlpatterns':
-
-```python
-# Your urls will look like:
-urlpatterns = [
-    url('admin/', admin.site.urls),
-    url('grappelli/', include('grappelli.urls')),
-    url('admin/ajax/', include('grappelli_extras.ajax_urls')),
-    url('admin/extras/', include('grappelli_extras.extras_urls')),
-
-]
-```
-
- * Be sure 'django.core.context_processors.request' on your TEMPLATE_CONTEXT_PROCESSORS setting:
-
 
 ## To run test project
 

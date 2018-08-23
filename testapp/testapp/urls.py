@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-from app.views import demo
+from app.views import *
 
 urlpatterns = [
     url('$^', demo),
+    url('table/', datatables),
     url('admin/', admin.site.urls),
     url('grappelli/', include('grappelli.urls')),
     url('admin/ajax/', include('grappelli_extras.ajax_urls')),
