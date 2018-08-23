@@ -41,12 +41,15 @@ INSTALLED_APPS = [
 
 ```python
 # Your urls will look like:
-urlpatterns = [
-    url('admin/', admin.site.urls),
-    url('admin/ajax/', include('grappelli_extras.ajax_urls')),
-    url('admin/extras/', include('grappelli_extras.extras_urls')),
-    url('grappelli/', include('grappelli.urls')),
+from django.contrib import admin
+from django.urls import path, include
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('grappelli/', include('grappelli.urls')),
+    path('admin/ajax/', include('grappelli_extras.ajax_urls')),
+    path('admin/extras/', include('grappelli_extras.extras_urls')),
+    path('admin/', admin.site.urls),
 ]
 ```
 
@@ -64,6 +67,40 @@ Traslation Suport by Locales.
 
 * [Ajax](#ajax)
 An Ajax api to make queries to django OMR using generics views.
+
+This is the way than you must to define your models
+the class base from grappelli_extras contain important functions for the models
+
+```python
+from django.db import models
+from grappelli_extras.models import base, base_entidad
+from django.template.loader import render_to_string
+
+
+class Foo(base_entidad):
+    """
+    A usual model than requiere to have a code, name and active condition.
+    This the code left in blank under the creation of the object the code will be autogerenate.
+
+    """
+    date = models.DateTimeField()
+    title = models.CharField(max_length=250)
+    description = models.TextField(max_length=600, null=True, blank=True)
+
+    def render_as_table(self):
+        return render_to_string("app/foo.html", {'obj': self})
+
+
+class Bar(base):
+    """
+    A usual related model for Foo
+    """
+    foo = models.ForeignKey(Foo, on_delete=models.CASCADE)
+    value = models.FloatField(default=0.0)
+    
+
+```
+
 
 # Using Autocomplete generic view
 ```javascript

@@ -6,3 +6,7 @@ def demo(request):
 
 def datatables(request):
     return render(request, "app/datatables.html")
+
+
+def calendar(request):
+    return render(request, "app/calendar.html")

@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 
 class Foo(base_entidad):
     """
-    A usual mode than requiere to have a code, name and active condition.
+    A usual model than requiere to have a code, name and active condition.
     This the code left in blank under the creation of the object the code will be autogerenate.
 
     """
