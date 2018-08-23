@@ -49,7 +49,6 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')),
     path('admin/ajax/', include('grappelli_extras.ajax_urls')),
     path('admin/extras/', include('grappelli_extras.extras_urls')),
-    path('admin/', admin.site.urls),
 ]
 ```
 
