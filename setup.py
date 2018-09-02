@@ -35,8 +35,8 @@ if sys.argv[-1] == 'publish':
     os.system("python setup.py sdist bdist_wheel")
     os.system("twine upload dist/django-grappelli-extras-%(version)s*" % args)
     print("Creating git tag the version now:")
-    os.system("git tag -a %(version)s -m 'version %(version)s'" % args)
-    os.system("git push --tags")
+    # os.system("git tag -a %(version)s -m 'version %(version)s'" % args)
+    # os.system("git push --tags")
     sys.exit()
 
 

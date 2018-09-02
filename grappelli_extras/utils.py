@@ -4,7 +4,7 @@ import operator
 import datetime
 import decimal
 from functools import reduce
-from django.db.models.fields.files import ImageFieldFile, FileField
+from django.db.models.fields.files import ImageFieldFile, FileField, FieldFile
 from django.contrib.contenttypes.models import ContentType
 
 
@@ -28,7 +28,12 @@ class Codec(json.JSONEncoder):
             return obj.strftime('H:%M:%S')
         elif isinstance(obj, datetime.date):
             return obj.strftime('%Y-%m-%d')
-        elif isinstance(obj, ImageFieldFile):
+        elif isinstance(obj, FieldFile):
+            try:
+                return obj.url
+            except:
+                return 'null'
+        elif isinstance(obj, FieldFile):
             try:
                 return obj.url
             except:

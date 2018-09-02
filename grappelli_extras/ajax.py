@@ -11,9 +11,9 @@ def load_module(mod, cls):
 
 
 def get_object(request):
-    instance = Filter(app_label=request.POST.get('app_label', request.GET.get('app_label')),
-                      model_name=request.POST.get('model', request.GET.get('model'))
-                      ).get_instance(request.POST.get('id', request.GET.get('id')))
+    instance = Filter(app_label=request.POST.get('app_label'),
+                      model_name=request.POST.get('model')
+                      ).get_instance(request.POST.get('id'))
     return HttpResponse(json.dumps(instance.to_json(), cls=Codec), content_type='application/json')
 
 
@@ -40,6 +40,26 @@ def object_view(request):
     except:
         result = getattr(instance, request.POST.get('view'))()
     return HttpResponse(result)
+
+
+def object_execute(request):
+    instance = None
+    f = Filter(app_label=request.POST.get('app_label'),
+                      model_name=request.POST.get('model')
+                      )
+    id = request.POST.get('id')
+    if id:
+        instance = f.get_instance(id)
+    else:
+        instance = f.model
+    try:
+        result = getattr(instance, request.POST.get('view'))(request)
+    except:
+        try:
+            result = getattr(instance, request.POST.get('view'))()
+        except:
+            result = str(getattr(instance, request.POST.get('view')))
+    return HttpResponse(json.dumps(result, cls=Codec), content_type='application/json')
 
 
 def get_collection(request):
@@ -75,26 +95,6 @@ def autocomplete(request):
                        'label': str(q),
                        'value': q.to_json()[value]})
     return HttpResponse(json.dumps(result, cls=Codec), content_type="application/json")
-
-
-def object_execute(request):
-    instance = None
-    f = Filter(app_label=request.POST.get('app_label'),
-                      model_name=request.POST.get('model')
-                      )
-    id = request.POST.get('id')
-    if id:
-        instance = f.get_instance(id)
-    else:
-        instance = f.model
-    try:
-        result = getattr(instance, request.POST.get('view'))(request)
-    except:
-        try:
-            result = getattr(instance, request.POST.get('view'))()
-        except:
-            result = str(getattr(instance, request.POST.get('view')))
-    return HttpResponse(json.dumps(result, cls=Codec), content_type='application/json')
 
 
 def get_html_form(request):

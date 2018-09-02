@@ -17,6 +17,8 @@ class Foo(base_entidad):
     title = models.CharField(max_length=250)
     description = models.TextField(max_length=600, null=True, blank=True)
 
+    file = models.FileField(upload_to="documents", null=True)
+
     def render_as_table(self):
         return render_to_string("app/foo.html", {'obj': self})
 
