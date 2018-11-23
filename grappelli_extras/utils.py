@@ -33,12 +33,12 @@ class Codec(json.JSONEncoder):
                 return obj.url
             except:
                 return 'null'
-        elif isinstance(obj, FieldFile):
+        elif isinstance(obj, FileField):
             try:
                 return obj.url
             except:
                 return 'null'
-        elif isinstance(obj, FileField):
+        elif isinstance(obj, ImageFieldFile):
             try:
                 return obj.url
             except:
