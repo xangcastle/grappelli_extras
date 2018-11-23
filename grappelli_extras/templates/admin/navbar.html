@@ -1,33 +1,52 @@
-    {% for app in available_apps %}
-        <li class="grp-collapse grp-closed">
-          <!--<a href="javascript://" class=" grp-collapse-handler">{{ app.name }}</a>-->
-          <a href="{{ app.app_url }}">{{ app.name }}</a>
-          <ul class="">
-              {% for model in app.models %}
-              {% if model.admin_url %}
-            <li class="">
-                <a href="{{ model.admin_url }}" style="display:inline-block">
+{% for app in available_apps %}
+<li class="grp-collapse grp-closed">
+    <!--<a href="javascript://" class=" grp-collapse-handler">{{ app.name }}</a>-->
+    <a href="{{ app.app_url }}">{{ app.name }}</a>
+    <ul class="">
+        {% for model in app.models %}
+        {% if model.admin_url %}
+        <li class="">
+            <a href="{{ model.admin_url }}" style="display:inline-block">
                 {{ model.name }}
-                </a>
-                {% if model.add_url %}
-                    <a href="{{ model.add_url }}" style="display:inline">+</a>
-                 {% endif %}
-            </li>
-              {% endif %}
-              {% endfor %}
-          </ul>
+            </a>
+            {% if model.add_url %}
+            <a href="{{ model.add_url }}" style="display:inline">+</a>
+            {% endif %}
         </li>
-    {% endfor %}
-    <script>
-        (function($) {
-            $(document).ready(function() {
-                $("#grp-navigation .grp-collapse").mouseover(function(){
-                    $("#grp-navigation .grp-collapse").removeClass('grp-open');
-                    $("#grp-navigation .grp-collapse").removeClass('grp-closed');
-                    $(this).addClass('grp-open');
-                }).mouseleave(function(){
-                    $("#grp-navigation .grp-collapse").removeClass('grp-open');
-                });
+        {% endif %}
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+
+{% if extra_menus %}
+
+{% for m in extra_menus %}
+<li class="grp-collapse grp-closed">
+    <a href="{{ m.link }}">{{ m.menu }}</a>
+    <ul class="">
+        {% for o in m.options %}
+        <li class="">
+            <a href="{{ o.link }}" style="display:inline-block">
+                {{ o.label }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+{% endif %}
+
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            $("#grp-navigation .grp-collapse").mouseover(function () {
+                $("#grp-navigation .grp-collapse").removeClass('grp-open');
+                $("#grp-navigation .grp-collapse").removeClass('grp-closed');
+                $(this).addClass('grp-open');
+            }).mouseleave(function () {
+                $("#grp-navigation .grp-collapse").removeClass('grp-open');
             });
-        })(grp.jQuery);
-    </script>
+        });
+    })(grp.jQuery);
+</script>

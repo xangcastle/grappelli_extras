@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'grappelli_extras.context_processors.extra_menus',
             ],
         },
     },
@@ -124,3 +125,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+EXTRA_MENUS = [{'menu': 'Reportes', 'link': '#',
+                'options': [{'link': '/reportes/reporte_matricula', 'label': 'Matriculas'},
+                            {'link': '/reportes/generar_reporte_matricula_no_paga' , 'label':'Matriculas no pagas'},
+                            {'link': '/reportes/reporte_ingresos', 'label': 'Resumen de Ingreso '},
+                            {'link': '/reportes/generar_reporte_cuenta', 'label': 'Reporte de Cta. Cobrar'},
+                            {'link': '/reportes/generar_reporte_cuenta', 'label': 'Reporte de Cta. Cobrar (2)'},
+                            {'link': '/reportes/generar_reporte_contribuyente', 'label': 'Reporte Contribuyentes'},
+                            {'link': '/reportes/generar_reporte_mes_a_mes', 'label': 'Mes a Mes'},
+                           ]
+                },]
