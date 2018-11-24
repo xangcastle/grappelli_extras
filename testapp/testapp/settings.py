@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'grappelli_extras.context_processors.extra_menus',
+                'grappelli_extras.context_processors.applist',
             ],
         },
     },

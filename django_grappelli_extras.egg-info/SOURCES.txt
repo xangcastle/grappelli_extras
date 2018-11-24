@@ -11,6 +11,7 @@ grappelli_extras/__init__.py
 grappelli_extras/admin.py
 grappelli_extras/ajax.py
 grappelli_extras/ajax_urls.py
+grappelli_extras/context_processors.py
 grappelli_extras/extras.py
 grappelli_extras/extras_urls.py
 grappelli_extras/models.py
