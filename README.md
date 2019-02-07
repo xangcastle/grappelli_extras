@@ -309,7 +309,7 @@ Now lets try with fullcalendar
 Now we can try by POST with more advanced filters. But don't forget to include ajax/token.js, is
 diferent form grp-token.js, grp-token must to by used inside grappelli pages.
 
-
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -347,6 +347,7 @@ diferent form grp-token.js, grp-token must to by used inside grappelli pages.
 </script>
 </body>
 </html>
+```
 
 
 You can add filters like a json see doc.
