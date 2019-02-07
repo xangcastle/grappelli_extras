@@ -22,6 +22,7 @@ grappelli_extras/static/ajax/grp-token.js
 grappelli_extras/static/ajax/token.js
 grappelli_extras/templates/admin/base.html
 grappelli_extras/templates/admin/navbar.html
+grappelli_extras/templates/admin/import_export/change_list.html
 grappelli_extras/templates/ajax/form.html
 grappelli_extras/templates/grappelli/navbar.html
 grappelli_extras/templates/print/document.html

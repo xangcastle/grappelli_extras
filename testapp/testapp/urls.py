@@ -18,9 +18,9 @@ from django.urls import path, include
 from app.views import *
 
 urlpatterns = [
-    path('$^', demo),
-    path('table/', datatables),
-    path('calendar/', calendar),
+    path('', demo),
+    path('table/', datatables, name="table"),
+    path('calendar/', calendar , name="calendar"),
     path('admin/', admin.site.urls),
     path('grappelli/', include('grappelli.urls')),
     path('admin/ajax/', include('grappelli_extras.ajax_urls')),

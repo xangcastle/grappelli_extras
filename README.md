@@ -261,7 +261,7 @@ And include all css and js as you need.
 
     $(document).ready(function () {
         $("table").DataTable({
-            ajax: '{% url "ajax_getDataTables" %}?app_label=app&model=foo',
+            ajax: '{% url "ajax_getDataTables" %}?app_label=app&model=foo&filters={"activo": 1}',
             columns: [{'data': 'id'}, {'data': 'code'}, {'data': 'name'}]
         });
     });
@@ -296,7 +296,7 @@ Now lets try with fullcalendar
 
     $(document).ready(function () {
         $('#calendar').fullCalendar({
-            events: "{% url 'ajax_getCollection' %}?app_label=app&model=foo"
+            events: "{% url 'ajax_getCollection' %}?app_label=app&model=foo&filters={'activo': 1}"
         });
     });
 
@@ -306,8 +306,51 @@ Now lets try with fullcalendar
 
 ```
 
+Now we can try by POST with more advanced filters. But don't forget to include ajax/token.js, is
+diferent form grp-token.js, grp-token must to by used inside grappelli pages.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<div id="calendar"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+<script src="{% static 'ajax/token.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css">
+
+<script>
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            events: function (start, end, timezone, callback) {
+                    $.ajax("{% url 'ajax_getCollection' %}", {
+                        type: "POST",
+                        data: {app_label: 'app', model: 'foo',
+                            filters: "{'date__gte': '" + start.format('Y-MM-DD') + "', 'date__lte': '" + end.format('Y-MM-DD') + "'}"
+                        },
+                        success: function (response) {
+                            callback(response);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    })
+                }
+        });
+    });
+</script>
+</body>
+</html>
+
 
 You can add filters like a json see doc.
+Full documentation is pending, in need time. Working so hard for now...:(
 
 * [Integration](#integration)*
 Integration of adminactions, filebrowser, import_export modules.
