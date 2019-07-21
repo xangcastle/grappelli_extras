@@ -6,24 +6,24 @@ from django.db.models import Max
 from django.forms.models import model_to_dict
 
 
-def get_code(entidad, length=4):
-        model = type(entidad)
+def get_code(entity, length=4):
+        model = type(entity)
         code = ''
         sets = model.objects.filter(code__isnull=False)
         if sets:
             maxi = str(sets.aggregate(Max('code'))['code__max'])
             if maxi:
-                consecutivo = list(range(1, int(maxi)))
-                ocupados = list(sets.values_list('code', flat=True))
+                consecutive = list(range(1, int(maxi)))
+                busy = list(sets.values_list('code', flat=True))
                 n = 0
-                for l in ocupados:
-                    ocupados[n] = int(str(l))
+                for l in busy:
+                    busy[n] = int(str(l))
                     n += 1
-                disponibles = list(set(consecutivo) - set(ocupados))
-                if len(disponibles) > 0:
-                    code = min(disponibles)
+                available = list(set(consecutive) - set(busy))
+                if len(available) > 0:
+                    code = min(available)
                 else:
-                    code = max(ocupados) + 1
+                    code = max(busy) + 1
         else:
             code = 1
         return str(code).zfill(length)
@@ -45,6 +45,12 @@ class base(models.Model):
         except:
             return None
 
+    def __setitem__(self, fieldname, value):
+        try:
+            return setattr(self, fieldname, value)
+        except:
+            return None
+
     def to_json(self):
         o = model_to_dict(self)
         o['app_label'] = self._meta.app_label
@@ -55,11 +61,11 @@ class base(models.Model):
         abstract = True
 
 
-class base_entidad(base):
+class BaseEntity(base):
     code = models.CharField(max_length=25, null=True, blank=True,
-        verbose_name="codigo")
-    name = models.CharField(max_length=100, verbose_name="nombre")
-    activo = models.BooleanField(default=True)
+        verbose_name="code")
+    name = models.CharField(max_length=100, verbose_name="name")
+    active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         if self.code is None or self.code == '':
@@ -68,7 +74,7 @@ class base_entidad(base):
 
     def __str__(self):
         if self.code and self.name:
-            return str(self.code) + " " + self.name
+            return "%s %s" % (str(self.code), str(self.name))
         elif self.name:
             return self.name
         elif self.code:
@@ -81,17 +87,7 @@ class base_entidad(base):
         ordering = ['name']
 
 
-class Entidad(base_entidad):
-
-    def __unicode__(self):
-        if self.code and self.name:
-            return str(self.code) + " " + self.name
-        elif self.name:
-            return self.name
-        elif self.code:
-            return str(self.code)
-        else:
-            return ''
+class Entity(BaseEntity):
 
     @staticmethod
     def autocomplete_search_fields():
@@ -101,19 +97,16 @@ class Entidad(base_entidad):
         abstract = True
         ordering = ['name']
 
-COINS = (('CORDOBAS', 'CORDOBAS'), ('DOLARES', 'DOLARES'))
 
 class Document(base):
     firts_status = "Draft"
     date = models.DateField(null=True, blank=True)
-    coin = models.CharField(max_length=65, null=True, choices=COINS)
-    rate = models.FloatField(default=1.0)
     number = models.PositiveIntegerField(null=True, blank=True)
     blog = models.TextField(max_length=5000, verbose_name="Correos e Información Relacionada", null=True, blank=True)
     printed = models.BooleanField(default=False)
 
-    def printed_number(self, ceros=4):
-        return str(self.number).zfill(ceros)
+    def printed_number(self, zeros=4):
+        return str(self.number).zfill(zeros)
 
     def doc_name(self):
         if not self.number and not self.date:
@@ -121,7 +114,7 @@ class Document(base):
         else:
             return "%s # %s" % (self._meta.verbose_name, self.printed_number())
 
-    doc_name.short_description = "Documento"
+    doc_name.short_description = "Document"
 
     def __unicode__(self):
         return self.doc_name()

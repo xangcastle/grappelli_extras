@@ -1,0 +1,31 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'ajax/grp-token.js' %}"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function () {
+                function option(city){
+                    return (`<option value="${city.id}">${city.name}</option>`)
+                }
+
+                $('#id_region').on('change', function () {
+                    let region = $(this).val();
+                    $.ajax("{% url 'ajax_getCollection' %}", {
+                        method: "POST",
+                        data: {app_label: 'app', model: 'city',
+                        filters: `{'region_id': ${region}}`},
+                        success: function (response) {
+                            $.each(response, function (i, o) {
+                                $('#id_city').empty().append(option(o))
+                            });
+                        }
+                    })
+                })
+            })
+        })(grp.jQuery)
+    </script>
+{% endblock %}

@@ -8,12 +8,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.join(BASE_DIR, PACKAGE_NAME)
 
 TO = os.path.join(PROJECT_DIR, PACKAGE_NAME)
-FROM = os.path.join(PROJECT_DIR, 'testapp', PACKAGE_NAME)
-RM = "rm -rf %s" % TO
-CP = "cp -r %s %s" % (FROM, PROJECT_DIR)
 
 
-VERSION_FILE = os.path.join(FROM, '__init__.py')
+VERSION_FILE = os.path.join(TO, '__init__.py')
 
 version_text = open(VERSION_FILE, "rt").read()
 
@@ -41,14 +38,14 @@ NEW_VERSION = "__version__ = '%s.%s.%s'" % (z, y , x)
 open(VERSION_FILE, "w").write(NEW_VERSION)
 
 import os
-os.system(RM)
-os.system(CP)
-os.system("git add . --all")
-os.system('git commit -am "%s"' % NEW_VERSION)
-os.system("git tag %s.%s.%s" % (z, y, x))
-os.system("git push origin master")
-os.system("git push --tags origin master")
-os.system("git push --tags origin master")
-os.system("python setup.py sdist bdist_wheel")
-os.system("twine upload dist/django-grappelli-extras-%s.%s.%s*" % (z, y, x))
+# os.system(RM)
+# os.system(CP)
+# os.system("git add . --all")
+# os.system('git commit -am "%s"' % NEW_VERSION)
+# os.system("git tag %s.%s.%s" % (z, y, x))
+# os.system("git push origin master")
+# os.system("git push --tags origin master")
+# os.system("git push --tags origin master")
+# os.system("python setup.py sdist bdist_wheel")
+# os.system("twine upload dist/django-grappelli-extras-%s.%s.%s*" % (z, y, x))
 print (NEW_VERSION)
