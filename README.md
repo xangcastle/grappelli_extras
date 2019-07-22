@@ -1,11 +1,17 @@
 # grappelli_extras
 
-[![Latest PyPI version](https://img.shields.io/v/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
+[![Latest PyPI version](https://img.shields.io/pypi/v/django-grappelli-extras.svg)](https://crate.io/packages/django-grappelli-extras/)
 
-[![Number of PyPI downloads](https://img.shields.io/d/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
+[![Number of PyPI downloads](https://img.shields.io/pypi/l/django-grappelli-extras.svg)](https://crate.io/packages/django-grappelli-extras/)
 
+
+.. image:: https://img.shields.io/pypi/v/django-grappelli.svg
+    :target: https://pypi.python.org/pypi/django-grappellis
+
+.. image:: https://img.shields.io/pypi/l/django-grappelli.svg
+    :target: https://pypi.python.org/pypi/django-grappelli
 # Requirements
-
+s
 * Python = 3
 * Django >= 2.1
 * django-grappelli >= 2.11.1
