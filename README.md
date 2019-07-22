@@ -1,8 +1,10 @@
 # grappelli_extras
 
-[![Latest PyPI version](https://pypip.in/v/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
+.. image:: https://img.shields.io/pypi/v/django-grappelli.svg
+    :target: https://pypi.python.org/pypi/django-grappelli
 
-[![Number of PyPI downloads](https://pypip.in/d/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
+.. image:: https://img.shields.io/pypi/l/django-grappelli.svg
+    :target: https://pypi.python.org/pypi/django-grappelli
 
 # Requirements
 
