@@ -5,7 +5,6 @@
 [![Number of PyPI downloads](https://img.shields.io/pypi/l/django-grappelli-extras.svg)](https://crate.io/packages/django-grappelli-extras/)
 
 # Requirements
-s
 * Python = 3
 * Django >= 2.1
 * django-grappelli >= 2.11.1
