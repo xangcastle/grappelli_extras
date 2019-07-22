@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: django-grappelli-extras
-Version: 1.1.7
+Version: 1.1.8
 Summary: Ajax, Extensions and Extras for Grappelli Admin interface
 Home-page: https://github.com/xangcastle/grappelli_extras/
 Author: Cesar Abel Ramirez
@@ -40,6 +40,26 @@ Description: # grappelli_extras
             'django.contrib.messages',
             'django.contrib.staticfiles',
             # continue with your apps
+        ]
+        ```
+        
+        * Put 'applist' in your active context_processors.
+        ```python
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                        'grappelli_extras.context_processors.applist',
+                    ],
+                },
+            },
         ]
         ```
         
@@ -269,7 +289,7 @@ Description: # grappelli_extras
         
             $(document).ready(function () {
                 $("table").DataTable({
-                    ajax: '{% url "ajax_getDataTables" %}?app_label=app&model=foo',
+                    ajax: '{% url "ajax_getDataTables" %}?app_label=app&model=foo&filters={"activo": 1}',
                     columns: [{'data': 'id'}, {'data': 'code'}, {'data': 'name'}]
                 });
             });
@@ -304,7 +324,7 @@ Description: # grappelli_extras
         
             $(document).ready(function () {
                 $('#calendar').fullCalendar({
-                    events: "{% url 'ajax_getCollection' %}?app_label=app&model=foo"
+                    events: "{% url 'ajax_getCollection' %}?app_label=app&model=foo&filters={'activo': 1}"
                 });
             });
         
@@ -314,8 +334,52 @@ Description: # grappelli_extras
         
         ```
         
+        Now we can try by POST with more advanced filters. But don't forget to include ajax/token.js, is
+        diferent form grp-token.js, grp-token must to by used inside grappelli pages.
+        
+        ```
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+        </head>
+        <body>
+        {% load static %}
+        <div id="calendar"></div>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+        <script src="{% static 'ajax/token.js' %}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css">
+        
+        <script>
+            $(document).ready(function () {
+                $('#calendar').fullCalendar({
+                    events: function (start, end, timezone, callback) {
+                            $.ajax("{% url 'ajax_getCollection' %}", {
+                                type: "POST",
+                                data: {app_label: 'app', model: 'foo',
+                                    filters: "{'date__gte': '" + start.format('Y-MM-DD') + "', 'date__lte': '" + end.format('Y-MM-DD') + "'}"
+                                },
+                                success: function (response) {
+                                    callback(response);
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            })
+                        }
+                });
+            });
+        </script>
+        </body>
+        </html>
+        ```
+        
         
         You can add filters like a json see doc.
+        Full documentation is pending, in need time. Working so hard for now...:(
         
         * [Integration](#integration)*
         Integration of adminactions, filebrowser, import_export modules.

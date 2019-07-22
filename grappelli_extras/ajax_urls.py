@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from .ajax import *
 
+# app_label = "grappelli_extras" fixme check before use app label
+
 urlpatterns = [
     url(r'^get_object/', get_object, name="ajax_getObject"),
     url(r'^object_update/', object_update, name="ajax_ObjectUpdate"),

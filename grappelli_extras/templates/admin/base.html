@@ -1,4 +1,16 @@
 {% extends "admin/base.html" %}
+{% load static %}
+
+
+{% block javascripts %}
+    <script type="text/javascript">
+        const $ajax_getColletion = "{% url 'ajax_getCollection' %}";
+        const $ajax_getObject = "{% url 'ajax_getObject' %}";
+        const $ajax_autocomplete = "{% url 'ajax_autocomplete' %}";
+    </script>
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'ajax/grp-token.js' %}"></script>
+{% endblock %}
 
 
 {% block userlinks %}
