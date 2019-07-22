@@ -4,12 +4,6 @@
 
 [![Number of PyPI downloads](https://img.shields.io/pypi/l/django-grappelli-extras.svg)](https://crate.io/packages/django-grappelli-extras/)
 
-
-.. image:: https://img.shields.io/pypi/v/django-grappelli.svg
-    :target: https://pypi.python.org/pypi/django-grappellis
-
-.. image:: https://img.shields.io/pypi/l/django-grappelli.svg
-    :target: https://pypi.python.org/pypi/django-grappelli
 # Requirements
 s
 * Python = 3
