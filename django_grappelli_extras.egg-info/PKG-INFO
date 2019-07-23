@@ -1,4 +1,4 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: django-grappelli-extras
 Version: 1.1.8
 Summary: Ajax, Extensions and Extras for Grappelli Admin interface
@@ -8,12 +8,11 @@ Author-email: xangcastle@gmail.com
 License: BSD
 Description: # grappelli_extras
         
-        [![Latest PyPI version](https://pypip.in/v/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
+        [![Latest PyPI version](https://img.shields.io/pypi/v/django-grappelli-extras.svg)](https://crate.io/packages/django-grappelli-extras/)
         
-        [![Number of PyPI downloads](https://pypip.in/d/django-grappelli-extras/badge.png)](https://crate.io/packages/django-grappelli-extras/)
+        [![Number of PyPI downloads](https://img.shields.io/pypi/l/django-grappelli-extras.svg)](https://crate.io/packages/django-grappelli-extras/)
         
         # Requirements
-        
         * Python = 3
         * Django >= 2.1
         * django-grappelli >= 2.11.1
@@ -417,3 +416,4 @@ Classifier: Topic :: Software Development :: Libraries
 Classifier: Topic :: Utilities
 Classifier: Environment :: Web Environment
 Classifier: Framework :: Django
+Description-Content-Type: text/markdown

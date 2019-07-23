@@ -85,17 +85,28 @@ Traslation Suport by Locales.
 
 * [Ajax](#ajax)
 An Ajax api to make queries to django OMR using generics views.
+The ajax url list are:
+
+    * "{% url 'ajax_getCollection' %}"
+    * "{% url 'ajax_getObject' %}"
+    * "{% url 'ajax_autocomplete' %}"
+    
+But if you need to use in a javascript file out of a django template, you can use as:
+
+    * $ajax_getColletion
+    * $ajax_getObject
+    * $ajax_autocomplete
 
 This is the way than you must to define your models
 the class base from grappelli_extras contain important functions for the models
 
 ```python
 from django.db import models
-from grappelli_extras.models import base, base_entidad
+from grappelli_extras.models import base, BaseEntity
 from django.template.loader import render_to_string
 
 
-class Foo(base_entidad):
+class Foo(BaseEntity):
     """
     A usual model than requiere to have a code, name and active condition.
     This the code left in blank under the creation of the object the code will be autogerenate.

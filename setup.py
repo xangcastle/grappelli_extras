@@ -6,6 +6,7 @@ import os
 import re
 import sys
 
+
 VERSION_FILE = 'grappelli_extras/__init__.py'
 version_text = open(VERSION_FILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
@@ -42,7 +43,7 @@ if sys.argv[-1] == 'publish':
 
 
 def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    return open(os.path.join(os.path.dirname(__file__), fname), "r").read()
 
 
 setup(
@@ -56,6 +57,7 @@ setup(
     include_package_data=True,
     description=description,
     long_description=read('README.md'),
+    long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
