@@ -1,7 +1,6 @@
 {% load i18n admin_static %}
 {% for app in available_apps %}
 <li class="grp-collapse grp-closed">
-  <!--<a href="javascript://" class=" grp-collapse-handler">{{ app.name }}</a>-->
   <a href="{{ app.app_url }}">{{ app.name }}</a>
   <ul class="">
       {% for model in app.models %}

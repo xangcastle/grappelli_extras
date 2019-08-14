@@ -48,11 +48,30 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'grappelli_extras.context_processors.applist',
+                
+                # if you need to add customs menu
+                'grappelli_extras.context_processors.extra_menus',
             ],
         },
     },
 ]
 ```
+
+
+To configure the extra menus than you need please add the following config
+your settings:
+
+```python
+EXTRA_MENUS = [
+    {'menu': 'Your menu', 'link': '#',
+     'options': [
+                    {'link': '/your-url/', 'label': 'Your label menu'},
+                 ]
+     },
+]
+```
+
+
 
 ## urls.py
 

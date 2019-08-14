@@ -1,6 +1,4 @@
 # -*- coding:utf-8 -*-
-from django import template
-from classytags.helpers import InclusionTag
 from django.contrib import admin
 from django.utils.text import capfirst
 from django.urls import reverse, NoReverseMatch
@@ -10,7 +8,12 @@ from django.conf import settings
 
 
 def extra_menus(request):
-    return {'extra_menus': settings.EXTRA_MENUS}
+    extra_menus = []
+    for menu in settings.EXTRA_MENUS:
+        for o in menu['options']:
+            if request.user.has_perm(o['perm']):
+                extra_menus.append(menu)
+    return {'extra_menus': extra_menus}
 
 
 site = admin.site

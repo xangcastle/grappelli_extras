@@ -39,6 +39,11 @@ class Customer(base):
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
+    class Meta:
+        permissions = (
+            ("can_report", "Can report"),
+        )
+
     def get_country(self):
         if self.country:
             country, created = Country.objects.get_or_create(name=self.country)

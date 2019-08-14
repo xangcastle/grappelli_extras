@@ -68,11 +68,20 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'grappelli_extras.context_processors.extra_menus',
                 'grappelli_extras.context_processors.applist',
+                'grappelli_extras.context_processors.extra_menus',
             ],
         },
     },
+]
+
+EXTRA_MENUS = [
+    {'menu': 'Reportería', 'link': '#',
+     'options': [
+         {'link': '/reportes/reporte_cotizacion_auto', 'label': 'Cotizaciónes de Automovil',
+          'perm': 'app.can_report'},
+        ]
+     },
 ]
 
 WSGI_APPLICATION = 'testapp.wsgi.application'
@@ -126,6 +135,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-EXTRA_MENUS = []

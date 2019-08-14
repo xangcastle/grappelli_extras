@@ -27,7 +27,6 @@ author_email = 'xangcastle@gmail.com'
 license = 'BSD'
 install_requires = [
     'django-grappelli>=2.11.1',
-    'django-classy-tags>=0.4',
     'django-import-export>=1.0.1',
     'django-adminactions>=1.5 ',
 ]
