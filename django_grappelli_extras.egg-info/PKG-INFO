@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: django-grappelli-extras
-Version: 1.1.8
+Version: 1.1.9
 Summary: Ajax, Extensions and Extras for Grappelli Admin interface
 Home-page: https://github.com/xangcastle/grappelli_extras/
 Author: Cesar Abel Ramirez
@@ -56,11 +56,30 @@ Description: # grappelli_extras
                         'django.contrib.auth.context_processors.auth',
                         'django.contrib.messages.context_processors.messages',
                         'grappelli_extras.context_processors.applist',
+                        
+                        # if you need to add customs menu
+                        'grappelli_extras.context_processors.extra_menus',
                     ],
                 },
             },
         ]
         ```
+        
+        
+        To configure the extra menus than you need please add the following config
+        your settings:
+        
+        ```python
+        EXTRA_MENUS = [
+            {'menu': 'Your menu', 'link': '#',
+             'options': [
+                            {'link': '/your-url/', 'label': 'Your label menu'},
+                         ]
+             },
+        ]
+        ```
+        
+        
         
         ## urls.py
         
@@ -93,17 +112,28 @@ Description: # grappelli_extras
         
         * [Ajax](#ajax)
         An Ajax api to make queries to django OMR using generics views.
+        The ajax url list are:
+        
+            * "{% url 'ajax_getCollection' %}"
+            * "{% url 'ajax_getObject' %}"
+            * "{% url 'ajax_autocomplete' %}"
+            
+        But if you need to use in a javascript file out of a django template, you can use as:
+        
+            * $ajax_getColletion
+            * $ajax_getObject
+            * $ajax_autocomplete
         
         This is the way than you must to define your models
         the class base from grappelli_extras contain important functions for the models
         
         ```python
         from django.db import models
-        from grappelli_extras.models import base, base_entidad
+        from grappelli_extras.models import base, BaseEntity
         from django.template.loader import render_to_string
         
         
-        class Foo(base_entidad):
+        class Foo(BaseEntity):
             """
             A usual model than requiere to have a code, name and active condition.
             This the code left in blank under the creation of the object the code will be autogerenate.

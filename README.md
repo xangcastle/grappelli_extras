@@ -65,7 +65,8 @@ your settings:
 EXTRA_MENUS = [
     {'menu': 'Your menu', 'link': '#',
      'options': [
-                    {'link': '/your-url/', 'label': 'Your label menu'},
+                    {'link': '/your-url/', 'label': 'Your label menu',
+                    'perm': '<APP_LABEL>.<PERM>'},
                  ]
      },
 ]
