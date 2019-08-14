@@ -8,12 +8,17 @@ from django.conf import settings
 
 
 def extra_menus(request):
-    extra_menus = []
+    menus = []
     for menu in settings.EXTRA_MENUS:
+        element = menu.copy()
+        element['options'] = []
         for o in menu['options']:
+            print(o)
             if request.user.has_perm(o['perm']):
-                extra_menus.append(menu)
-    return {'extra_menus': extra_menus}
+                element['options'].append(o)
+        if len(element['options']) > 0:
+            menus.append(element)
+    return {'extra_menus': menus}
 
 
 site = admin.site

@@ -41,7 +41,8 @@ class Customer(base):
 
     class Meta:
         permissions = (
-            ("can_report", "Can report"),
+            ("can_report_1", "Report # 1"),
+            ("can_report_2", "Report # 2"),
         )
 
     def get_country(self):

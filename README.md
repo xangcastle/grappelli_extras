@@ -63,11 +63,15 @@ your settings:
 
 ```python
 EXTRA_MENUS = [
-    {'menu': 'Your menu', 'link': '#',
+    {'menu': 'Reports', 'link': '#',
+
      'options': [
-                    {'link': '/your-url/', 'label': 'Your label menu',
-                    'perm': '<APP_LABEL>.<PERM>'},
-                 ]
+        {'link': '/reports/report1', 'label': 'Report # 1',
+        'perm': 'app.can_report_1'},
+        {'link': '/reports/report2', 'label': 'Report # 2',
+        'perm': 'app.can_report_2'},
+        ]
+
      },
 ]
 ```
@@ -152,9 +156,7 @@ class Bar(base):
 
 
 # Using Autocomplete generic view
-```javascript
-
-
+```html
 <script src="{% static 'ajax/grp-token.js' %}"></script>
 
 <input type="text" id="complete-input">
@@ -174,14 +176,10 @@ class Bar(base):
         $('#complete-input').on('keyup', completeEvent);
     })(grp.jQuery)
 </script>
-
-
 ```
 
 # Using GetCollection generic view
-```javascript
-
-
+```html
 <script src="{% static 'ajax/grp-token.js' %}"></script>
 
 <script>
@@ -195,13 +193,10 @@ class Bar(base):
             })
     })(grp.jQuery)
 </script>
-
 ```
 
 # Using GetObject generic view
-```javascript
-
-
+```html
 <script src="{% static 'ajax/grp-token.js' %}"></script>
 
 <script>
@@ -215,16 +210,15 @@ class Bar(base):
             })
     })(grp.jQuery)
 </script>
-
 ```
 
 # Using ObjectView generic view
-Firts define the method returning a html string
+First define the method returning a html string
 ```python
-from grappelli_extras.models import base, base_entidad
+from grappelli_extras.models import BaseEntity
 from django.template.loader import render_to_string
 
-class Foo(base_entidad):
+class Foo(BaseEntity):
     ...
     def render_as_table(self):
         return render_to_string("app/foo.html", {'obj': self})
@@ -262,9 +256,7 @@ In the html template render using django tags and filters as usual
 
 ```
 After when you need to render this conten by Ajax
-```javascript
-
-
+```html
 <script src="{% static 'ajax/grp-token.js' %}"></script>
 
 <div id="result"></div>
@@ -280,7 +272,6 @@ After when you need to render this conten by Ajax
             })
     })(grp.jQuery)
 </script>
-
 ```
 
 # Working with jQuery pluggins.
@@ -319,13 +310,11 @@ And include all css and js as you need.
 </script>
 </body>
 </html>
-
 ```
 
 
 Now lets try with fullcalendar
 ```djangotemplate
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -359,7 +348,7 @@ Now lets try with fullcalendar
 Now we can try by POST with more advanced filters. But don't forget to include ajax/token.js, is
 diferent form grp-token.js, grp-token must to by used inside grappelli pages.
 
-```
+```djangotemplate
 <!DOCTYPE html>
 <html lang="en">
 <head>

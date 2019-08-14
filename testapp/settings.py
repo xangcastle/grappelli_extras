@@ -75,12 +75,18 @@ TEMPLATES = [
     },
 ]
 
+GRAPPELLI_SWITCH_USER = True
+
 EXTRA_MENUS = [
-    {'menu': 'Reportería', 'link': '#',
+    {'menu': 'Reports', 'link': '#',
+
      'options': [
-         {'link': '/reportes/reporte_cotizacion_auto', 'label': 'Cotizaciónes de Automovil',
-          'perm': 'app.can_report'},
+        {'link': '/reports/report1', 'label': 'Report # 1',
+        'perm': 'app.can_report_1'},
+        {'link': '/reports/report2', 'label': 'Report # 2',
+        'perm': 'app.can_report_2'},
         ]
+
      },
 ]
 
