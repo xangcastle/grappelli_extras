@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: django-grappelli-extras
-Version: 1.1.9
+Version: 1.2.0
 Summary: Ajax, Extensions and Extras for Grappelli Admin interface
 Home-page: https://github.com/xangcastle/grappelli_extras/
 Author: Cesar Abel Ramirez
@@ -71,10 +71,15 @@ Description: # grappelli_extras
         
         ```python
         EXTRA_MENUS = [
-            {'menu': 'Your menu', 'link': '#',
+            {'menu': 'Reports', 'link': '#',
+        
              'options': [
-                            {'link': '/your-url/', 'label': 'Your label menu'},
-                         ]
+                {'link': '/reports/report1', 'label': 'Report # 1',
+                'perm': 'app.can_report_1'},
+                {'link': '/reports/report2', 'label': 'Report # 2',
+                'perm': 'app.can_report_2'},
+                ]
+        
              },
         ]
         ```
@@ -159,9 +164,7 @@ Description: # grappelli_extras
         
         
         # Using Autocomplete generic view
-        ```javascript
-        
-        
+        ```html
         <script src="{% static 'ajax/grp-token.js' %}"></script>
         
         <input type="text" id="complete-input">
@@ -181,14 +184,10 @@ Description: # grappelli_extras
                 $('#complete-input').on('keyup', completeEvent);
             })(grp.jQuery)
         </script>
-        
-        
         ```
         
         # Using GetCollection generic view
-        ```javascript
-        
-        
+        ```html
         <script src="{% static 'ajax/grp-token.js' %}"></script>
         
         <script>
@@ -202,13 +201,10 @@ Description: # grappelli_extras
                     })
             })(grp.jQuery)
         </script>
-        
         ```
         
         # Using GetObject generic view
-        ```javascript
-        
-        
+        ```html
         <script src="{% static 'ajax/grp-token.js' %}"></script>
         
         <script>
@@ -222,16 +218,15 @@ Description: # grappelli_extras
                     })
             })(grp.jQuery)
         </script>
-        
         ```
         
         # Using ObjectView generic view
-        Firts define the method returning a html string
+        First define the method returning a html string
         ```python
-        from grappelli_extras.models import base, base_entidad
+        from grappelli_extras.models import BaseEntity
         from django.template.loader import render_to_string
         
-        class Foo(base_entidad):
+        class Foo(BaseEntity):
             ...
             def render_as_table(self):
                 return render_to_string("app/foo.html", {'obj': self})
@@ -269,9 +264,7 @@ Description: # grappelli_extras
         
         ```
         After when you need to render this conten by Ajax
-        ```javascript
-        
-        
+        ```html
         <script src="{% static 'ajax/grp-token.js' %}"></script>
         
         <div id="result"></div>
@@ -287,7 +280,6 @@ Description: # grappelli_extras
                     })
             })(grp.jQuery)
         </script>
-        
         ```
         
         # Working with jQuery pluggins.
@@ -326,13 +318,11 @@ Description: # grappelli_extras
         </script>
         </body>
         </html>
-        
         ```
         
         
         Now lets try with fullcalendar
         ```djangotemplate
-        
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -366,7 +356,7 @@ Description: # grappelli_extras
         Now we can try by POST with more advanced filters. But don't forget to include ajax/token.js, is
         diferent form grp-token.js, grp-token must to by used inside grappelli pages.
         
-        ```
+        ```djangotemplate
         <!DOCTYPE html>
         <html lang="en">
         <head>

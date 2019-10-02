@@ -13,7 +13,6 @@ def extra_menus(request):
         element = menu.copy()
         element['options'] = []
         for o in menu['options']:
-            print(o)
             if request.user.has_perm(o['perm']):
                 element['options'].append(o)
         if len(element['options']) > 0:

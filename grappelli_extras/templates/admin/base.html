@@ -2,6 +2,16 @@
 {% load static %}
 
 
+{% block stylesheets %}
+    {{ block.super }}
+    <style type="text/css">
+        #grp-content{
+            padding: 0 20px 200px !important;
+        }
+    </style>
+{% endblock %}
+
+
 {% block javascripts %}
     <script type="text/javascript">
         const $ajax_getColletion = "{% url 'ajax_getCollection' %}";
