@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.utils.text import capfirst
 from django.urls import reverse, NoReverseMatch
-from django.utils import six
+import six
 from django.apps import apps
 from django.conf import settings
 

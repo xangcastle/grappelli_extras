@@ -32,7 +32,7 @@ def get_code(entity, length=4):
 class base(models.Model):
 
     def __iter__(self):
-        for field_name in self._meta.get_all_field_names():
+        for field_name in self._meta.fields():
             try:
                 value = getattr(self, field_name)
             except:
