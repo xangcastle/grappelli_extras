@@ -11,89 +11,104 @@ def load_module(mod, cls):
 
 
 def get_object(request):
-    instance = Filter(app_label=request.POST.get('app_label'),
-                      model_name=request.POST.get('model')
-                      ).get_instance(request.POST.get('id'))
-    return HttpResponse(json.dumps(instance.to_json(), cls=Codec), content_type='application/json')
+    instance = None
+    if request.user.is_staff and request.user.is_active:
+        instance = Filter(app_label=request.POST.get('app_label'),
+                          model_name=request.POST.get('model')
+                          ).get_instance(request.POST.get('id')).to_json()
+    return HttpResponse(json.dumps(instance, cls=Codec), content_type='application/json')
 
 
 def object_update(request):
     result = ""
-    instance = Filter(app_label=request.POST.get('app_label'),
-                      model_name=request.POST.get('model')
-                      ).get_instance(request.POST.get('id'))
-    data = request.POST.get('data', None)
-    if data:
-        for k, v in json.loads(str(data).replace("'", "\"")).items():
-            setattr(instance, k, v)
-        instance.save()
+    instance = None
+    if request.user.is_active and request.user.is_staff:
+        instance = Filter(app_label=request.POST.get('app_label'),
+                          model_name=request.POST.get('model')
+                          ).get_instance(request.POST.get('id'))
+        data = request.POST.get('data', None)
+        if data:
+            for k, v in json.loads(str(data).replace("'", "\"")).items():
+                setattr(instance, k, v)
+            instance.save()
     return HttpResponse(json.dumps({'result': result, 'intance': instance.to_json()}, cls=Codec),
                         content_type='application/json')
 
 
 def object_view(request):
-    instance = Filter(app_label=request.POST.get('app_label'),
-                      model_name=request.POST.get('model')
-                      ).get_instance(request.POST.get('id'))
-    try:
-        result = getattr(instance, request.POST.get('view'))(request)
-    except:
-        result = getattr(instance, request.POST.get('view'))()
+    result = None
+    if request.user.is_staff and request.user.is_active:
+        instance = Filter(app_label=request.POST.get('app_label'),
+                          model_name=request.POST.get('model')
+                          ).get_instance(request.POST.get('id'))
+        try:
+            result = getattr(instance, request.POST.get('view'))(request)
+        except:
+            result = getattr(instance, request.POST.get('view'))()
     return HttpResponse(result)
 
 
 def object_execute(request):
-    instance = None
-    f = Filter(app_label=request.POST.get('app_label'),
-                      model_name=request.POST.get('model')
-                      )
-    id = request.POST.get('id')
-    if id:
-        instance = f.get_instance(id)
-    else:
-        instance = f.model
-    try:
-        result = getattr(instance, request.POST.get('view'))(request)
-    except:
+    result = None
+    if request.user.is_staff and request.user.is_active:
+        instance = None
+        f = Filter(app_label=request.POST.get('app_label'),
+                   model_name=request.POST.get('model')
+                   )
+        id = request.POST.get('id')
+        if id:
+            instance = f.get_instance(id)
+        else:
+            instance = f.model
         try:
-            result = getattr(instance, request.POST.get('view'))()
+            result = getattr(instance, request.POST.get('view'))(request)
         except:
-            result = str(getattr(instance, request.POST.get('view')))
+            try:
+                result = getattr(instance, request.POST.get('view'))()
+            except:
+                result = str(getattr(instance, request.POST.get('view')))
     return HttpResponse(json.dumps(result, cls=Codec), content_type='application/json')
 
 
 def get_collection(request):
-    queryset = Filter(app_label=request.POST.get('app_label', request.GET.get('app_label')),
-                      model_name=request.POST.get('model', request.GET.get('model'))
-                      ).filter_by_json(request.POST.get('filters', request.GET.get('filters')))
-    return HttpResponse(json.dumps([x.to_json() for x in queryset], cls=Codec),
+    result = []
+    if request.user.is_staff and request.user.is_active:
+        queryset = Filter(app_label=request.POST.get('app_label', request.GET.get('app_label')),
+                          model_name=request.POST.get('model', request.GET.get('model'))
+                          ).filter_by_json(request.POST.get('filters', request.GET.get('filters')))
+        result = [x.to_json() for x in queryset]
+    return HttpResponse(json.dumps(result, cls=Codec),
                         content_type='application/json')
 
 
 def get_datatables(request):
-    queryset = Filter(app_label=request.POST.get('app_label', request.GET.get('app_label')),
-                      model_name=request.POST.get('model', request.GET.get('model'))
-                      ).filter_by_json(request.POST.get('filters', request.GET.get('filters')))
-    return HttpResponse(json.dumps({'data': [x.to_json() for x in queryset]}, cls=Codec),
+    result = []
+    if request.user.is_staff and request.user.is_active:
+        queryset = Filter(app_label=request.POST.get('app_label', request.GET.get('app_label')),
+                          model_name=request.POST.get('model', request.GET.get('model'))
+                          ).filter_by_json(request.POST.get('filters', request.GET.get('filters')))
+        result = [x.to_json() for x in queryset]
+    return HttpResponse(json.dumps({'data': result}, cls=Codec),
                         content_type='application/json')
 
 
 def autocomplete(request):
     result = []
-    columns = request.GET.get('column_name').split(",")
-    value = request.GET.get('column_value')
-    columns = [('{}__like'.format(column), request.GET.get('term')) for column in columns]
-    filters = request.GET.get('filters', [])
-    if filters:
-        filters = filters.split(",")
-        filters = [tuple(x.split("=")) for x in filters]
-    queryset = Filter(app_label=request.GET.get('app_label'),
-                      model_name=request.GET.get('model')
-                      ).filter_by_list(columns, operator.or_, filters)
-    for q in queryset:
-        result.append({'obj': q.to_json(),
-                       'label': str(q),
-                       'value': q.to_json()[value]})
+    if request.user.is_staff and request.user.is_active:
+        columns = request.GET.get('column_name').split(",")
+        value = request.GET.get('column_value')
+        columns = [('{}__like'.format(column), request.GET.get('term')) for column in columns]
+        filters = request.GET.get('filters', [])
+        if filters:
+            filters = filters.split(",")
+            filters = [tuple(x.split("=")) for x in filters]
+        queryset = Filter(app_label=request.GET.get('app_label'),
+                          model_name=request.GET.get('model')
+                          ).filter_by_list(columns, operator.or_, filters)
+        for q in queryset:
+            result.append({'obj': q.to_json(),
+                           'label': str(q),
+                           'value': q.to_json()[value]})
     return HttpResponse(json.dumps(result, cls=Codec), content_type="application/json")
 
 
