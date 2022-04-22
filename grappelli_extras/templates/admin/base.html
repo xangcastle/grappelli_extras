@@ -3,9 +3,9 @@
 
 {% block javascripts %}
     <script type="text/javascript">
-        const $ajax_getColletion = "{% url 'ajax_getCollection' %}";
-        const $ajax_getObject = "{% url 'ajax_getObject' %}";
-        const $ajax_autocomplete = "{% url 'ajax_autocomplete' %}";
+        const $ajax_getColletion = "{% url 'grappelli_extras:ajax_getCollection' %}";
+        const $ajax_getObject = "{% url 'grappelli_extras:ajax_getObject' %}";
+        const $ajax_autocomplete = "{% url 'grappelli_extras:ajax_autocomplete' %}";
     </script>
     {{ block.super }}
     <script type="text/javascript" src="{% static 'ajax/grp-token.js' %}"></script>
